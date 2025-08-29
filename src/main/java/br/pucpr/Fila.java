@@ -2,39 +2,34 @@ package br.pucpr;
 
 public class Fila {
     private int[][] dados;
-    private int [] inicio;
-    private int []fim;
-    private int  [] tamanho;
+    private int  inicio;
+    private int fim;
+    private int  tamanho;
     private int capacidade;
-    public Fila(int capacidade,int Nfilas){
+    public Fila(int capacidade){
         this.capacidade = capacidade;
-        dados = new int[Nfilas][capacidade];
-        inicio = new int[Nfilas];
-        fim = new int[Nfilas];
-        tamanho = new int[Nfilas];
-        for (int i = 0; i < Nfilas; i++) {
-            inicio[i] = 0;
-            fim[i] = -1;
-            tamanho[i] = 0;
-        }
+        dados = new int[capacidade][2];
+        inicio = 0;
+        fim = -1;
+        tamanho = 0;
     }
-    public void enfileirar(int filaId, int valor) {
-        if (tamanho[filaId] == capacidade) {
-            System.out.println("Fila " + filaId + " cheia!");
-            return;
+    public void enfileirar(int valor1, int valor2) {
+        if (tamanho == capacidade) {
+            throw new RuntimeException("Fila cheia!");
         }
-        fim[filaId] = (fim[filaId] + 1) % capacidade;
-        dados[filaId][fim[filaId]] = valor;
-        tamanho[filaId]++;
+        fim = (fim + 1) % capacidade;
+        dados[fim][0] = valor1;
+        dados[fim][1] = valor2;
+        tamanho++;
     }
 
-    public int desenfileirar(int filaId) {
-        if (tamanho[filaId] == 0) {
-            throw new RuntimeException("Fila " + filaId + " vazia!");
+    public int[] desenfileirar(int filaId) {
+        if (tamanho == 0) {
+            throw new RuntimeException("Fila vazia!");
         }
-        int valor = dados[filaId][inicio[filaId]];
-        inicio[filaId] = (inicio[filaId] + 1) % capacidade;
-        tamanho[filaId]--;
+        int[] valor = dados[inicio];
+        inicio = (inicio + 1) % capacidade;
+        tamanho--;
         return valor;
     }
 
