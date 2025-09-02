@@ -15,46 +15,37 @@ public class PreencherImagemFila {
     public PreencherImagemFila() throws IOException {
     }
 
-    BufferedImage img = ImageIO.read(getClass().getResourceAsStream("/golem.jpeg"));
+    BufferedImage img = ImageIO.read(getClass().getResourceAsStream("/testImageNoWhite.png"));
     private int valorTotalDosPixels = img.getHeight() * img.getWidth();
-    Fila fila = new Fila(valorTotalDosPixels);
+    Fila fila = new Fila(valorTotalDosPixels * 4);
 
     public void PegarPontoInicial(int valor1, int valor2) throws IOException {
         this.valor1 = valor1;
-        this.valor2 = valor1;
+        this.valor2 = valor2;
         cor = img.getRGB(valor1, valor2);
         fila.enfileirar(valor1, valor2);
-        img.setRGB(valor1, valor2, 0xFFFFFFFF);
+
     }
         public void ColorirImagem() throws IOException {
-            for (int i = 0; i < valorTotalDosPixels; i++) {
-                valor1++;
 
-                // Verifica se está dentro dos limites da imagem
-                if (valor1 >= 0 && valor1 < img.getWidth() &&
-                        valor2 >= 0 && valor2 < img.getHeight()) {
+            while (!fila.isVazia()){
+                int[] ponto = fila.desenfileirar();
+                int pixelX = ponto[0];
+                int pixelY = ponto[1];
+                System.out.println("desenfileirando");
+                if (pixelX >= 0 && pixelX < img.getWidth() && pixelY >= 0 && pixelY < img.getHeight()
+                        && img.getRGB(pixelX, pixelY) == cor) {
+                    System.out.println("pintando o pixel: " + pixelX  + "" + pixelY);
+                    img.setRGB(pixelX, pixelY, 0xFFFFFFFF);
 
-                    fila.enfileirar(valor1, valor2);
-
-                    if (img.getRGB(valor1, valor2) == cor) {
-                        img.setRGB(valor1, valor2, 0xFFFFFFFF);
-                    } else {
-                        valor2++;
-
-                        if (valor1 >= 0 && valor1 < img.getWidth() &&
-                                valor2 >= 0 && valor2 < img.getHeight()) {
-
-                            fila.enfileirar(valor1, valor2);
-
-                            if (img.getRGB(valor1, valor2) == cor) {
-                                img.setRGB(valor1, valor2, 0xFFFFFFFF);
-                            }
-                        }
-                    }
+                    fila.enfileirar(pixelX + 1, pixelY);
+                    fila.enfileirar(pixelX - 1, pixelY);
+                    fila.enfileirar(pixelX, pixelY + 1);
+                    fila.enfileirar(pixelX, pixelY - 1);
+                    System.out.println("enfilirando");
                 }
             }
-
-            ImageIO.write(img, "jpeg", new File("testigiv.jpeg"));
+            ImageIO.write(img, "png", new File("test1.png"));
         }
 
 

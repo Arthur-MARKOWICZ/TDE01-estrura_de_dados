@@ -15,7 +15,7 @@ public class Pilha {
     }
 
     public int pop(){
-        if (topo == -1) throw new RuntimeException("Pilha vazia");
+        if (topo == -1) throw new RuntimeException("Pilha isVazia");
         return dados[topo-1];
     }
 }

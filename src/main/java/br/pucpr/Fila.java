@@ -23,14 +23,19 @@ public class Fila {
         tamanho++;
     }
 
-    public int[] desenfileirar(int filaId) {
+    public int[] desenfileirar() {
         if (tamanho == 0) {
-            throw new RuntimeException("Fila vazia!");
+            throw new RuntimeException("Fila isVazia!");
         }
         int[] valor = dados[inicio];
         inicio = (inicio + 1) % capacidade;
         tamanho--;
         return valor;
     }
+    public boolean isVazia() {
+        return tamanho == 0;
+    }
+
+
 
 }
