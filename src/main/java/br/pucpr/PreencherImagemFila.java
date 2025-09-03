@@ -32,17 +32,20 @@ public class PreencherImagemFila {
                 int[] ponto = fila.desenfileirar();
                 int pixelX = ponto[0];
                 int pixelY = ponto[1];
-                System.out.println("desenfileirando");
+                System.out.println("desenfileirando: " + pixelX + "," + pixelY);
                 if (pixelX >= 0 && pixelX < img.getWidth() && pixelY >= 0 && pixelY < img.getHeight()
                         && img.getRGB(pixelX, pixelY) == cor) {
-                    System.out.println("pintando o pixel: " + pixelX  + "" + pixelY);
+                    System.out.println("pintando o pixel: " + pixelX  + "," + pixelY);
                     img.setRGB(pixelX, pixelY, 0xFFFFFFFF);
 
                     fila.enfileirar(pixelX + 1, pixelY);
+                    System.out.println("enfilirando: " + (pixelX + 1 ) +"," + pixelY);
                     fila.enfileirar(pixelX - 1, pixelY);
+                    System.out.println("enfilirando: " + (pixelX -1 ) +"," + pixelY);
                     fila.enfileirar(pixelX, pixelY + 1);
+                    System.out.println("enfilirando: " +pixelX +  "," +(pixelY +1 )  );
                     fila.enfileirar(pixelX, pixelY - 1);
-                    System.out.println("enfilirando");
+                    System.out.println("enfilirando: " + pixelX + "," +(pixelY -1 )   );
                 }
             }
             ImageIO.write(img, "png", new File("test1.png"));
