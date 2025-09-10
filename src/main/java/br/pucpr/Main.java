@@ -3,7 +3,7 @@ package br.pucpr;
 import java.io.IOException;
 
 public class Main {
-    public static void main(String[] args) throws IOException {
+    public static void main(String[] args) throws IOException, InterruptedException {
         PreencherImagemFila testFila = new PreencherImagemFila();
         PreencherImagemPilha testpilha = new PreencherImagemPilha();
         testFila.PegarPontoInicial(15,15);

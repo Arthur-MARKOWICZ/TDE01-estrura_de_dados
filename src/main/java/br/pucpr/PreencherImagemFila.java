@@ -1,23 +1,33 @@
 package br.pucpr;
 
 import javax.imageio.ImageIO;
-import java.awt.*;
+import javax.swing.*;
 import java.awt.image.BufferedImage;
 import java.io.File;
 import java.io.IOException;
-import java.nio.Buffer;
 
 public class PreencherImagemFila {
     private int cor;
     private int valor1;
     private int valor2;
-
+    private int contador;
+    private JFrame frame;
+    private AbaImagem panel;
+    private int contadorDeFrames = 0;
     public PreencherImagemFila() throws IOException {
+
+        frame = new JFrame("Animação Flood Fill");
+        panel = new AbaImagem(img);
+        frame.add(panel);
+        frame.setSize(img.getWidth() + 20, img.getHeight() + 40);
+        frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+        frame.setVisible(true);
     }
 
-    BufferedImage img = ImageIO.read(getClass().getResourceAsStream("/testImageNoWhite.png"));
+    BufferedImage img = ImageIO.read(getClass().getResourceAsStream("/golem.png"));
     private int valorTotalDosPixels = img.getHeight() * img.getWidth();
     Fila fila = new Fila(valorTotalDosPixels * 4);
+
 
     public void PegarPontoInicial(int valor1, int valor2) throws IOException {
         this.valor1 = valor1;
@@ -26,7 +36,7 @@ public class PreencherImagemFila {
         fila.enfileirar(valor1, valor2);
 
     }
-        public void ColorirImagem() throws IOException {
+        public void ColorirImagem() throws IOException, InterruptedException {
 
             while (!fila.isVazia()){
                 int[] ponto = fila.desenfileirar();
@@ -46,11 +56,25 @@ public class PreencherImagemFila {
                     System.out.println("enfilirando: " +pixelX +  "," +(pixelY +1 )  );
                     fila.enfileirar(pixelX, pixelY - 1);
                     System.out.println("enfilirando: " + pixelX + "," +(pixelY -1 )   );
+                    panel.repaint();
+                    Thread.sleep(5);
+                    contador++;
+//                    if (contador % 100 == 0) {
+//                        salvarFrame();
+//                    }
+
                 }
             }
             ImageIO.write(img, "png", new File("test1.png"));
+//            salvarFrame();
         }
 
+//    private void salvarFrame() throws IOException {
+//        contadorDeFrames++;
+//        String nomeArquivo = String.format("frame%04d.png", contadorDeFrames);
+//        ImageIO.write(img, "png", new File(nomeArquivo));
+//        System.out.println("Frame salvo: " + nomeArquivo);
+//    }
 
     }
 
