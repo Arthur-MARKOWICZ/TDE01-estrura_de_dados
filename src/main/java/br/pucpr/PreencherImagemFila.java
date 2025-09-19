@@ -65,7 +65,7 @@ public class PreencherImagemFila {
 
                 }
             }
-            ImageIO.write(img, "png", new File("test1.png"));
+            ImageIO.write(img, "png", new File("fila.png"));
 //            salvarFrame();
         }
 
