@@ -16,7 +16,7 @@ public class PreencherImagemFila {
     private int contadorDeFrames = 0;
     public PreencherImagemFila() throws IOException {
 
-        frame = new JFrame("Animação Flood Fill");
+        frame = new JFrame("Animação da fila");
         panel = new AbaImagem(img);
         frame.add(panel);
         frame.setSize(img.getWidth() + 20, img.getHeight() + 40);
